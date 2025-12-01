@@ -17,6 +17,7 @@ CREATE MATERIALIZED VIEW daily_stats AS
 	SELECT o.order_date, COUNT(o.order_id) AS nb_orders, SUM(oi.quantity * oi.unit_price) AS revenue_by_day
 	FROM orders o
 	LEFT JOIN order_items oi on o.order_id = oi.order_id
+	WHERE o.status = 'COMPLETED'
 	GROUP BY o.order_date;
 
 SELECT * FROM daily_stats;
